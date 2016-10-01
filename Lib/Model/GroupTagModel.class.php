@@ -28,10 +28,10 @@ class GroupTagModel extends Model
                 $delete_map['gid'] = $gid;
                 $delete_map['tag_id'] = array('not in', $tagids);
                 $this->where($delete_map)->delete();
-                $return['code'] = '1' ;
+                $return['code'] = '1';
                 //$return['data'] =  $tagdata ;
             } else {
-                $return['code'] = '0' ;
+                $return['code'] = '0';
             }
         } else {
             $return['code'] = '-1';

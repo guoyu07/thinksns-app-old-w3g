@@ -99,7 +99,7 @@ class BaseAction extends Action
     {
         // 登录验证
         $passport = model('Passport');
-        if (! $passport->isLogged()) {
+        if (!$passport->isLogged()) {
             $_SESSION ['__forward__'] = $_SERVER ['REQUEST_URI'];
             redirect(U('wap/Public/login'));
         }
@@ -110,11 +110,11 @@ class BaseAction extends Action
             echo $msg;
             exit();
         }
-        if (! $url) {
+        if (!$url) {
             $url = $_SERVER ['HTTP_REFERER'];
         }
 
-        if (! empty($msg) && $delay == 0) {
+        if (!empty($msg) && $delay == 0) {
             $delay = 3;
         }
 

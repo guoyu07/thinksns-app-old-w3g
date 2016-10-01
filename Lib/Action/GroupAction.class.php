@@ -29,7 +29,7 @@ class GroupAction extends BaseAction
 
         if ($this->gid) {
             $groupinfo = D('group')->where('id='.$this->gid.' AND is_del=0')->find();
-            if (! $groupinfo) {
+            if (!$groupinfo) {
                 $jumpUrl = U('w3g/Group/index');
                 $this->error('该微吧不存在，或者被删除', 3, $jumpUrl);
             }
@@ -50,11 +50,11 @@ class GroupAction extends BaseAction
             $groupinfo ['cname1'] = D('Category', 'group')->getField('title', array(
                     'id' => $groupinfo ['cid1'],
             ));
-            $groupinfo ['type_name'] = $groupinfo ['brower_level'] == - 1 ? '公开' : '私密';
+            $groupinfo ['type_name'] = $groupinfo ['brower_level'] == -1 ? '公开' : '私密';
             $groupinfo ['tags'] = D('GroupTag', 'group')->getGroupTagList($this->gid);
             $groupinfo ['openUploadFile'] = (model('Xdata')->get('group:uploadFile')) ? $groupinfo ['openUploadFile'] : 0;
             $groupinfo ['path'] = D('Category', 'group')->getPathWithCateId($groupinfo ['cid1']);
-            if (! $groupinfo ['path']) {
+            if (!$groupinfo ['path']) {
                 $groupinfo ['path'] = D('Category', 'group')->getPathWithCateId($groupinfo ['cid0']);
             }
             $groupinfo ['path'] = implode(' - ', $groupinfo ['path']);
@@ -85,7 +85,7 @@ class GroupAction extends BaseAction
             }
 
             // 浏览权限
-            if (! $this->ismember) {
+            if (!$this->ismember) {
                 // 邀请加入
                 if (M('group_invite_verify')->where("gid={$this->gid} AND uid={$this->mid} AND is_used=0")->find()) {
                     $this->is_invited = 1;
@@ -149,11 +149,11 @@ class GroupAction extends BaseAction
         $cate = intval($_GET ['cate']);
 
         $map ['is_del'] = 0;
-        if ($cate == - 1) {
+        if ($cate == -1) {
             $cate_title = '推荐微吧';
             $map ['recommend'] = 1;
             $list = D('group')->where($map)->order('sort asc')->findPage(10);
-        } elseif ($cate == - 2) {
+        } elseif ($cate == -2) {
             $cate_title = '热门微吧';
             $map ['hot'] = 1;
             $list = D('group')->where($map)->order('sort asc')->findPage(10);
@@ -230,7 +230,7 @@ class GroupAction extends BaseAction
     public function topic()
     {
         // 判断功能是否开启
-        if (! $this->groupinfo ['openBlog']) {
+        if (!$this->groupinfo ['openBlog']) {
             $jumpUrl = U('w3g/Group/index', array(
                     'gid' => $this->gid,
             ));
@@ -255,7 +255,7 @@ class GroupAction extends BaseAction
         $this->topic->setInc('viewcount', 'id='.$tid);
         $thread = $this->topic->getThread($tid); // 获取主题
                                                     // 判读帖子存不存在
-        if (! $thread) {
+        if (!$thread) {
             $jumpUrl = U('w3g/Group/detail', array(
                     'gid' => $this->gid,
             ));
@@ -273,7 +273,7 @@ class GroupAction extends BaseAction
             );
             $thread ['attach'] = D('Dir', 'group')->field('id,name,note,is_del')->where($_attach_map)->findAll();
         }
-        if (! empty($thread ['image_ids'])) {
+        if (!empty($thread ['image_ids'])) {
             $thread ['attachIds'] = explode(',', $thread ['image_ids']);
 
             $attachInfo = model('Attach')->getAttachByIds($thread ['attachIds']);
@@ -286,7 +286,7 @@ class GroupAction extends BaseAction
         }
         $postlist = $this->post->where('is_del = 0 AND istopic=0 AND tid='.$tid)->findPage($limit);
         foreach ($postlist ['data'] as &$vo) {
-            if (! empty($vo ['image_ids'])) {
+            if (!empty($vo ['image_ids'])) {
                 $vo ['attachIds'] = explode(',', $vo ['image_ids']);
 
                 $attachInfo = model('Attach')->getAttachByIds($vo ['attachIds']);
@@ -320,7 +320,7 @@ class GroupAction extends BaseAction
 
         if ($tid > 0) {
             $topic = D('Topic', 'group')->field('id,uid,title,`lock`')->where("gid={$this->gid} AND id={$tid} AND is_del=0")->find(); // 获取话题内容
-            if (! $topic) {
+            if (!$topic) {
                 $this->error('帖子不存在或已被删除');
             } elseif ($topic ['lock'] == 1) {
                 $url = U('group/Topic/topic', array(
@@ -491,7 +491,7 @@ class GroupAction extends BaseAction
             $cid1 = D('Category', 'group')->_digCateNew($_POST);
             intval($cid1) > 0 && $group ['cid1'] = intval($cid1);
 
-            if (! $group ['name']) {
+            if (!$group ['name']) {
                 $this->error('微吧名称不能为空');
             } elseif (get_str_length($_POST ['name']) > 30) {
                 $this->error('微吧名称不能超过30个字');
@@ -532,7 +532,7 @@ class GroupAction extends BaseAction
 
             // 微吧LOGO
             $group ['logo'] = 'default.gif';
-            if (! empty($_POST ['image_ids'])) {
+            if (!empty($_POST ['image_ids'])) {
                 $_POST ['image_ids'] = implode(',', array_filter(explode('|', $_POST ['image_ids'])));
                 $attachInfo = model('Attach')->getAttachById($_POST ['image_ids']);
                 $group ['logo'] = $attachInfo ['save_path'].$attachInfo ['save_name'];
@@ -578,7 +578,7 @@ class GroupAction extends BaseAction
     {
         $key = '';
         // 为使搜索条件在分页时也有效，将搜索条件记录到SESSION中
-        if (isset($_REQUEST [$key_name]) && ! empty($_REQUEST [$key_name])) {
+        if (isset($_REQUEST [$key_name]) && !empty($_REQUEST [$key_name])) {
             if ($_GET [$key_name]) {
                 $key = html_entity_decode(urldecode($_GET [$key_name]), ENT_QUOTES);
             } elseif ($_POST [$key_name]) {
@@ -618,7 +618,7 @@ class GroupAction extends BaseAction
             }
         }
 
-        if (! empty($msg)) {
+        if (!empty($msg)) {
             $this->ajaxReturn(0, $msg, 0);
             exit();
         }
@@ -670,7 +670,7 @@ class GroupAction extends BaseAction
     // 退出该群
     public function quitGroup()
     {
-        if (iscreater($this->mid, $this->gid) || ! $this->ismember) {
+        if (iscreater($this->mid, $this->gid) || !$this->ismember) {
             echo '-1';
             exit();
         } // $this->error('你没有权限'); //群组不可以退出
@@ -695,7 +695,7 @@ class GroupAction extends BaseAction
     // 删除
     public function del()
     {
-        $id = isset($_POST ['tid']) && ! empty($_POST ['tid']) ? t($_POST ['tid']) : '';
+        $id = isset($_POST ['tid']) && !empty($_POST ['tid']) ? t($_POST ['tid']) : '';
         if ($id == '') {
             exit(json_encode(array(
                     'flag' => '0',
@@ -715,7 +715,7 @@ class GroupAction extends BaseAction
                 $map ['id'] = $id;
                 $map ['gid'] = $this->gid;
                 $topicInfo = $this->topic->field('id,uid,title')->where($map)->find();
-                if (! $this->isadmin && $topicInfo ['uid'] != $this->mid) {
+                if (!$this->isadmin && $topicInfo ['uid'] != $this->mid) {
                     exit(json_encode(array(
                             'flag' => '0',
                             'msg' => '你没有权限',
@@ -742,7 +742,7 @@ class GroupAction extends BaseAction
             }
         } elseif ($_POST ['type'] == 'post') {
             $post_info = $this->post->field('uid,tid')->where('id='.$id)->find(); // 获取要删除的帖子id
-            if (! $this->isadmin && $post_info ['uid'] != $this->mid) {
+            if (!$this->isadmin && $post_info ['uid'] != $this->mid) {
                 $this->error('你没有权限');
             }
             $this->post->remove($id); // 删除回复

@@ -6,8 +6,7 @@ class PostModel extends Model
 
      // 获取文件
      /**
-      * getGroupList
-
+      * getGroupList.
       */
      public function getPostList($html = 1, $map = null, $fields = null, $order = null, $limit = null, $isDel = 0)
      {
@@ -21,7 +20,7 @@ class PostModel extends Model
          $map[] = 'istopic=0';
          $map = implode(' AND ', $map);
             //连贯查询.获得数据集
-            $result = $this->where($map)->field($fields)->order($order)->findPage($limit) ;
+            $result = $this->where($map)->field($fields)->order($order)->findPage($limit);
 
          if ($html) {
              return $result;

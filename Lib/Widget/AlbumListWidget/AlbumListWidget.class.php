@@ -35,10 +35,12 @@ class AlbumListWidget extends Widget
     }
     /**
      * renderFile
-     * 重写renderFile.可以自由组合参数进行模板输出
-     * @param  string $templateFile
-     * @param  string $var
-     * @param  string $charset
+     * 重写renderFile.可以自由组合参数进行模板输出.
+     *
+     * @param string $templateFile
+     * @param string $var
+     * @param string $charset
+     *
      * @return maxed
      */
     protected function renderFile($data, $charset = 'utf-8')

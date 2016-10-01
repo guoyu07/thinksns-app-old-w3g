@@ -1,6 +1,6 @@
 <?php
 /**
- * 用户统计模型
+ * 用户统计模型.
  *
  * @author nonant
  */
@@ -9,7 +9,7 @@ class GroupUserCountModel extends Model
     protected $tableName = 'group_user_count';
 
     /**
-     * 添加统计数据
+     * 添加统计数据.
      *
      * @param int|array $uid    用户ID
      * @param string    $type   统计的项目
@@ -43,12 +43,12 @@ class GroupUserCountModel extends Model
     }
 
     /**
-     * 归0
+     * 归0.
      *
      * @param int|array $uid  用户ID
      * @param string    $type 统计的项目
      */
-    public function setZero($uid = 0, $type)
+    public function setZero($uid, $type)
     {
         $map['uid'] = $uid;
 
@@ -56,12 +56,12 @@ class GroupUserCountModel extends Model
     }
 
     /**
-     * 归0
+     * 归0.
      *
      * @param int|array $uid  用户ID
      * @param string    $type 统计的项目
      */
-    public function setGroupZero($uid = 0, $gid = 0, $type)
+    public function setGroupZero($uid, $gid, $type)
     {
         $map['uid'] = $uid;
         $map['gid'] = $gid;
@@ -72,8 +72,9 @@ class GroupUserCountModel extends Model
     /**
      * 获取统计值
      *
-     * @param  int|array $uid  用户ID
-     * @param  string    $type 统计的项目，为空将返回所有统计项目结果
+     * @param int|array $uid  用户ID
+     * @param string    $type 统计的项目，为空将返回所有统计项目结果
+     *
      * @return mixed
      */
     public function getUnreadCount($uid = 0, $type = '')
@@ -93,8 +94,9 @@ class GroupUserCountModel extends Model
     /**
      * 获取某群内统计值
      *
-     * @param  int|array $uid  用户ID
-     * @param  string    $type 统计的项目，为空将返回所有统计项目结果
+     * @param int|array $uid  用户ID
+     * @param string    $type 统计的项目，为空将返回所有统计项目结果
+     *
      * @return mixed
      */
     public function getGroupUnreadCount($uid = 0, $gid = 0, $type = '')

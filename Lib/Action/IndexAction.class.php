@@ -320,7 +320,7 @@ class IndexAction extends BaseAction
             }
         }
         // 原创分享且可被评论
-        if (! $origin_uid && $detail ['cancomment_current'] == 1) {
+        if (!$origin_uid && $detail ['cancomment_current'] == 1) {
             $detail ['retweet_name'] = $detail ['uname'];
             $detail ['cancomment'] = 1;
         }
@@ -349,7 +349,7 @@ class IndexAction extends BaseAction
         } elseif (($_GET ['id'])) {
             $data ['id'] = intval($_GET ['id']);
         }
-        if (! $data ['id']) {
+        if (!$data ['id']) {
             redirect($_SERVER ['HTTP_REFERER'], 3, '参数错误');
         }
         $detail = api('WeiboStatuses')->data($data)->show();
@@ -448,7 +448,7 @@ class IndexAction extends BaseAction
     }
 
     /**
-     * 隐私设置
+     * 隐私设置.
      */
     public function privacy($uid)
     {
@@ -857,7 +857,7 @@ class IndexAction extends BaseAction
         // } else {
         // // 微吧
         // strtolower($key) === 'weiba_post' && $key = 'weiba';
-        //
+
         // $langKey = 'PUBLIC_APPNAME_' . strtoupper ( $key );
         // $lang = L($langKey);
         // if($lang==$langKey){
@@ -872,7 +872,7 @@ class IndexAction extends BaseAction
         // 安全过滤
         $t = t($_GET ['t']);
         // !empty($t) && $map['table'] = $t;
-        ! empty($t) && $map ['app'] = $t;
+        !empty($t) && $map ['app'] = $t;
         if ($t == 'feed') {
             $map ['app'] = 'public';
         }
@@ -936,7 +936,7 @@ class IndexAction extends BaseAction
             $sdiggArr = model('FeedDigg')->checkIsDigg($feedIds, $this->mid);
             $sdiggArr = array_keys($sdiggArr);
             foreach ($weibolist as &$value) {
-                if (! empty($value ['feed_id']) && in_array($value ['feed_id'], $sdiggArr)) {
+                if (!empty($value ['feed_id']) && in_array($value ['feed_id'], $sdiggArr)) {
                     $value ['is_digg'] = 1;
                 } else {
                     $value ['is_digg'] = 0;
@@ -1115,7 +1115,7 @@ class IndexAction extends BaseAction
         $userGids = model('UserGroupLink')->getUserGroup($var ['uid']);
         $userGroupData = model('UserGroup')->getUserGroupByGids($userGids [$var ['uid']]);
         foreach ($userGroupData as $key => $value) {
-            if ($value ['user_group_icon'] == - 1) {
+            if ($value ['user_group_icon'] == -1) {
                 unset($userGroupData [$key]);
                 continue;
             }
@@ -1358,12 +1358,12 @@ class IndexAction extends BaseAction
     public function doFollow()
     {
         $user_id = intval($_GET ['user_id']);
-        if (! in_array($_GET ['from'], array(
+        if (!in_array($_GET ['from'], array(
                 'user_following',
                 'user_followers',
                 'search',
                 'weibo',
-        )) || ! in_array($_GET ['type'], array(
+        )) || !in_array($_GET ['type'], array(
                 'follow',
                 'unfollow',
         )) || $user_id <= 0) {
@@ -1408,11 +1408,11 @@ class IndexAction extends BaseAction
 
         $uploadCondition = $_FILES ['pic'] && in_array(strtolower($ext), $allowExts, true);
 
-        if (! empty($_FILES ['pic'] ['tmp_name']) && ! $uploadCondition) {
+        if (!empty($_FILES ['pic'] ['tmp_name']) && !$uploadCondition) {
             // redirect(U('w3g/Index/index'), 3, '只能上传图片附件');
             $this->ajaxReturn(null, '只能上传图片附件', 0);
         }
-        if (empty($_POST ['content']) && ! $_FILES ['pic']) {
+        if (empty($_POST ['content']) && !$_FILES ['pic']) {
             // $this->redirect(U('w3g/Index/post'), 2, '内容不能为空');
             $this->ajaxReturn(null, '内容不能为空', 0);
         }
@@ -1469,15 +1469,15 @@ class IndexAction extends BaseAction
             $api_method = 'upload';
         }
         // 自动拆分成多条
-        for ($i = 1; $i <= $parts; $i ++) {
+        for ($i = 1; $i <= $parts; ++$i) {
             $sub_content = mb_substr($_POST ['content'], 0, 140, 'UTF8');
             $data ['content'] = $sub_content;
             $data ['from'] = $this->_type_wap;
             $data ['app_name'] = 'public';
-            $_POST ['content'] = mb_substr($_POST ['content'], 140, - 1, 'UTF8');
+            $_POST ['content'] = mb_substr($_POST ['content'], 140, -1, 'UTF8');
             $res = api('WeiboStatuses')->data($data)->$api_method ();
             // $res = $this->__formatByContent($res);
-            if (! $res) {
+            if (!$res) {
                 $this->ajaxReturn(null, '数据错误，请重试。', 0);
                 // return ;
             } else {
@@ -1514,7 +1514,7 @@ class IndexAction extends BaseAction
     }
 
     /**
-     * 发布分享操作，用于AJAX
+     * 发布分享操作，用于AJAX.
      *
      * @return json 发布分享后的结果信息JSON数据
      */
@@ -1525,7 +1525,7 @@ class IndexAction extends BaseAction
         // 用户发送内容
         $d ['content'] = isset($_POST ['content']) ? h($_POST ['content']) : '';
         $filterContentStatus = filter_words($d ['content']);
-        if (! $filterContentStatus ['status']) {
+        if (!$filterContentStatus ['status']) {
             echo $filterContentStatus ['data'];
             exit();
             // exit(json_encode(array('status'=>0, 'data'=>$filterContentStatus['data'])));
@@ -1534,7 +1534,7 @@ class IndexAction extends BaseAction
 
         // 原始数据内容
         $filterBodyStatus = filter_words($_POST ['body']);
-        if (! $filterBodyStatus ['status']) {
+        if (!$filterBodyStatus ['status']) {
             echo $filterBodyStatus ['data'];
             exit();
             // $return = array('status'=>0,'data'=>$filterBodyStatus['data']);
@@ -1551,7 +1551,7 @@ class IndexAction extends BaseAction
         $d ['body'] = preg_replace("/#[\s]*([^#^\s][^#]*[^#^\s])[\s]*#/is", '#'.trim('${1}').'#', $d ['body']);
         // 附件信息
         $d ['attach_id'] = trim(t($_POST ['attach_id']), '|');
-        if (! empty($d ['attach_id'])) {
+        if (!empty($d ['attach_id'])) {
             $d ['attach_id'] = explode('|', $d ['attach_id']);
             array_map('intval', $d ['attach_id']);
         }
@@ -1563,7 +1563,7 @@ class IndexAction extends BaseAction
         $d ['from'] = $this->_type_wap;
         // 所属应用名称
         $app = isset($_POST ['app_name']) ? t($_POST ['app_name']) : APP_NAME; // 当前动态产生所属的应用
-        if (! $data = model('Feed')->put($this->uid, $app, $type, $d)) {
+        if (!$data = model('Feed')->put($this->uid, $app, $type, $d)) {
             echo model('Feed')->getError();
             exit();
             // $return = array('status'=>0,'data'=>model('Feed')->getError());
@@ -1590,7 +1590,7 @@ class IndexAction extends BaseAction
         $last ['last_post_time'] = $_SERVER ['REQUEST_TIME'];
         model('User')->where('uid='.$this->uid)->save($last);
         $isOpenChannel = model('App')->isAppNameOpen('channel');
-        if (! $isOpenChannel) {
+        if (!$isOpenChannel) {
             echo $return ['data'];
             exit();
             // exit ( json_encode ( $return ) );
@@ -1600,7 +1600,7 @@ class IndexAction extends BaseAction
         // echo $channelId;exit;
         // 绑定用户
         $bindUserChannel = D('Channel', 'channel')->getCategoryByUserBind($this->mid);
-        if (! empty($bindUserChannel)) {
+        if (!empty($bindUserChannel)) {
             $channelId = array_merge($bindUserChannel, explode(',', $channelId));
             $channelId = array_filter($channelId);
             $channelId = array_unique($channelId);
@@ -1615,13 +1615,13 @@ class IndexAction extends BaseAction
             $topic = trim(preg_replace('/#/', '', t($topic)));
         }
         $bindTopicChannel = D('Channel', 'channel')->getCategoryByTopicBind($topics);
-        if (! empty($bindTopicChannel)) {
+        if (!empty($bindTopicChannel)) {
             $channelId = array_merge($bindTopicChannel, explode(',', $channelId));
             $channelId = array_filter($channelId);
             $channelId = array_unique($channelId);
             $channelId = implode(',', $channelId);
         }
-        if (! empty($channelId)) {
+        if (!empty($channelId)) {
             // 获取后台配置数据
             $channelConf = model('Xdata')->get('channel_Admin:index');
             $return ['is_audit_channel'] = $channelConf ['is_audit'];
@@ -1651,7 +1651,7 @@ class IndexAction extends BaseAction
     }
 
     /**
-     * 添加评论接口，目前只支持分享与微吧
+     * 添加评论接口，目前只支持分享与微吧.
      *
      * @return int 返回状态
      */
@@ -1733,7 +1733,7 @@ class IndexAction extends BaseAction
         $r ['success'] = '1';
         $r ['des'] = 'ok';
         // get comment ccid
-        for ($i = 0; $i < count($comment); $i ++) {
+        for ($i = 0; $i < count($comment); ++$i) {
             if ($comment [$i] ['uid'] == $uid) {
                 $r ['ccid'] = $comment [$i] ['comment_id'];
                 break;
@@ -1819,7 +1819,7 @@ class IndexAction extends BaseAction
         $data ['id'] = $weibo_id;
         $weibo = api('WeiboStatuses')->data($data)->show();
         // $weibo = $this->__formatByContent($weibo);
-        if (! $weibo) {
+        if (!$weibo) {
             // $this->redirect(U('w3g/Index/index'), 3, '参数错误');
             // return ;
             echo '参数错误';
@@ -1843,7 +1843,7 @@ class IndexAction extends BaseAction
         // 过滤内容值
         // $post['body'] = filter_keyword($post['body']);
         $filterBodyStatus = filter_words($post ['body']);
-        if (! $filterBodyStatus ['status']) {
+        if (!$filterBodyStatus ['status']) {
             echo $filterBodyStatus ['data'];
             exit();
             // $return = array('status'=>0,'data'=>$filterBodyStatus['data']);
@@ -1907,7 +1907,7 @@ class IndexAction extends BaseAction
         // echo '内容不能为空';
         // exit();
         // }
-        //
+
         // $data['id'] = $weibo_id;
         // $weibo = api('WeiboStatuses')->data($data)->show();
         // unset($data);
@@ -1921,12 +1921,12 @@ class IndexAction extends BaseAction
         // if ( $weibo['is_repost'] == 1 ) {
         // $_POST['content'] .= "//@{$weibo['uname']}：{$weibo['feed_content']}";
         // }
-        //
+
         // // 仅取前140字
         // $admin_Config = model('Xdata')->lget('admin_Config');
         // $weibo_nums = $admin_Config['feed']['weibo_nums'];
         // $_POST['content'] = mb_substr($_POST['content'], 0,$weibo_nums , 'UTF8');
-        //
+
         // $data['content'] = $_POST['content'];
         // $data['from'] = $this->_type_wap;
         // $data['transpond_id'] = $weibo['transpond_id'] ? $weibo['transpond_id'] : $weibo_id;
@@ -2043,21 +2043,21 @@ class IndexAction extends BaseAction
         $data ['source_table_name'] = $detail ['app_row_table'];
 
         // 不存在时
-        if (! $detail) {
+        if (!$detail) {
             echo 0;
             exit();
         }
         // 非作者时
         if ($detail ['uid'] != $this->mid) {
             // 没有管理权限不可以删除
-            if (! CheckPermission('core_admin', 'feed_del')) {
+            if (!CheckPermission('core_admin', 'feed_del')) {
                 echo 0;
                 exit();
             }
             // 是作者时
         } else {
             // 没有前台权限不可以删除
-            if (! CheckPermission('core_normal', 'feed_del')) {
+            if (!CheckPermission('core_normal', 'feed_del')) {
                 echo 0;
                 exit();
             }
@@ -2149,7 +2149,7 @@ class IndexAction extends BaseAction
     }
     public function urlalert()
     {
-        if (! isset($_GET ['url']) || ! isset($_GET ['from_url'])) {
+        if (!isset($_GET ['url']) || !isset($_GET ['from_url'])) {
             redirect(U('w3g/Index/index'), 3, '参数错误');
         }
         $this->assign('url', $_GET ['url']);
@@ -2168,7 +2168,7 @@ class IndexAction extends BaseAction
         if (empty($msg)) {
             $msg = "系统将在{$time}秒之后自动跳转到{$url}！";
         }
-        if (! headers_sent()) {
+        if (!headers_sent()) {
             // redirect
             if (0 === $time) {
                 header('Location: '.$url);
@@ -2204,7 +2204,7 @@ class IndexAction extends BaseAction
         $data ['search_key'] = t($_REQUEST ['key']);
         // 专题信息
         if (false == $data ['topics'] = model('FeedTopic')->getTopic($data ['search_key'], false)) {
-            if (! $data ['topics']) {
+            if (!$data ['topics']) {
                 $this->error('此话题不存在');
             }
             $data ['topics'] ['name'] = t($data ['search_key']);
@@ -2248,9 +2248,9 @@ class IndexAction extends BaseAction
         $seo ['title'] = str_replace($replaces, $replace, $seo ['title']);
         $seo ['keywords'] = str_replace($replaces, $replace, $seo ['keywords']);
         $seo ['des'] = str_replace($replaces, $replace, $seo ['des']);
-        ! empty($seo ['title']) && $this->setTitle($seo ['title']);
-        ! empty($seo ['keywords']) && $this->setKeywords($seo ['keywords']);
-        ! empty($seo ['des']) && $this->setDescription($seo ['des']);
+        !empty($seo ['title']) && $this->setTitle($seo ['title']);
+        !empty($seo ['keywords']) && $this->setKeywords($seo ['keywords']);
+        !empty($seo ['des']) && $this->setDescription($seo ['des']);
         $this->display('searchtopic');
     }
     // ajax上传-iframe页
@@ -2419,8 +2419,7 @@ class IndexAction extends BaseAction
     }
 
     /**
-     * 发送私信弹窗
-     *
+     * 发送私信弹窗.
      */
     public function sendmsg()
     {
@@ -2435,7 +2434,7 @@ class IndexAction extends BaseAction
         $this->display();
     }
     /**
-     * 返回好友分组列表
+     * 返回好友分组列表.
      */
     public function atwho()
     {
@@ -2488,12 +2487,12 @@ class IndexAction extends BaseAction
         $map ['recommend'] = 1;
         $map ['lock'] = 0;
         $list = model('Cache')->get('feed_topic_recommend');
-        if (! $list) {
+        if (!$list) {
             $list = model('FeedTopic')->where($map)->order('count desc')->limit(10)->findAll();
-            ! $list && $list = 1;
+            !$list && $list = 1;
             model('Cache')->set('feed_topic_recommend', $list, 86400);
         }
-        if (! is_array($list)) {
+        if (!is_array($list)) {
             $list = array();
         }
         $this->assign('topic_list', $list);
@@ -2505,7 +2504,7 @@ class IndexAction extends BaseAction
     {
         $max_id = $_REQUEST ['max_id'] ? intval($_REQUEST ['max_id']) : 0;
         $count = $_REQUEST ['count'] ? intval($_REQUEST ['count']) : 20;
-        ! empty($max_id) && $where = " sort > {$max_id}";
+        !empty($max_id) && $where = " sort > {$max_id}";
         $channels = D('channel_category')->where($where)->limit($count)->field('channel_category_id,title,sort')->order('sort ASC')->findAll();
         foreach ($channels as $k => $v) {
             // $big_image = D('channel')->where('channel_category_id='.$v['channel_category_id'].' and width>=590 and height>=245')->max('feed_id');
@@ -2517,10 +2516,10 @@ class IndexAction extends BaseAction
             // $channels[$k]['image'][0] = SITE_URL.'/apps/channel/_static/image/api_big.png';
             // }
             $small_image = D('channel')->where('channel_category_id='.$v ['channel_category_id'].' and width>=196 and width<590 and height>=156 and height<245')->order('feed_id desc')->limit(6)->findAll();
-            for ($i = 0; $i < 6; $i ++) {
+            for ($i = 0; $i < 6; ++$i) {
                 $feed_data = unserialize(D('feed_data')->where('feed_id='.$small_image [$i] ['feed_id'])->getField('feed_data'));
                 $small_image_info_3 = model('Attach')->getAttachById($feed_data ['attach_id'] [0]);
-                if (! $small_image [$i] || ! is_array($feed_data) || ! is_array($small_image_info_3)) {
+                if (!$small_image [$i] || !is_array($feed_data) || !is_array($small_image_info_3)) {
                     continue;
                 }
                 // echo $small_image_info_3['save_path'].$small_image_info_3['save_name'];exit;

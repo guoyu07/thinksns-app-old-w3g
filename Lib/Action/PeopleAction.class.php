@@ -3,7 +3,7 @@
 // ini_set('display_errors', true);
 // error_reporting(E_ALL);
 /**
- * 找人首页控制器
+ * 找人首页控制器.
  */
 class PeopleAction extends BaseAction
 {
@@ -23,7 +23,7 @@ class PeopleAction extends BaseAction
     }
 
     /**
-     * 找人首页换一批控制器
+     * 找人首页换一批控制器.
      */
     public function refresh()
     {
@@ -37,7 +37,7 @@ class PeopleAction extends BaseAction
     }
 
     /**
-     * 找人结果页控制器
+     * 找人结果页控制器.
      */
     public function search()
     {
@@ -76,7 +76,8 @@ class PeopleAction extends BaseAction
     }
 
     /**
-     * 添加关注操作
+     * 添加关注操作.
+     *
      * @return json 返回操作后的JSON信息数据
      */
     public function doFollow()
@@ -88,7 +89,8 @@ class PeopleAction extends BaseAction
     }
 
     /**
-     * 取消关注操作
+     * 取消关注操作.
+     *
      * @return json 返回操作后的JSON信息数据
      */
     public function unFollow()
@@ -195,7 +197,8 @@ class PeopleAction extends BaseAction
     }
 
     /**
-     * 获取指定父分类的树形结构
+     * 获取指定父分类的树形结构.
+     *
      * @return int   $pid 父分类ID
      * @return array 指定父分类的树形结构
      */
@@ -210,7 +213,7 @@ class PeopleAction extends BaseAction
     }
 
     /**
-     * 找人结果页面
+     * 找人结果页面.
      * */
     public function findResult()
     {
@@ -300,7 +303,7 @@ class PeopleAction extends BaseAction
 //		}else{
 //			if(!in_array(t($_GET['type']), $conf['findPeople'])) $this->error('参数错误！');
 //		}
-//
+
 //		$lastuid = isset($_GET['lastuid']) ? intval($_GET['lastuid']) : 0;
 //		$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 20;
 //		// 获取相关数据

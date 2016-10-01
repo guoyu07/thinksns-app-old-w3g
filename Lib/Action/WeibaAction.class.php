@@ -59,14 +59,14 @@ class WeibaAction extends BaseAction
         $maps ['weiba_id'] = $weiba_id;
 
         $post_ids = array();
-        if ($_GET ['type'] != 'digest' && ! ($_REQUEST ['p'] > 1)) { // 列表第一页加上全局置顶的帖子
+        if ($_GET ['type'] != 'digest' && !($_REQUEST ['p'] > 1)) { // 列表第一页加上全局置顶的帖子
             $map2 ['top'] = 2;
             $map2 ['is_del'] = 0;
             $topPostList = D('weiba_post', 'weiba')->where($map2)->order('post_time desc')->findAll(); // 全局置顶
 
             $map2 ['top'] = 1;
             $map2 ['weiba_id'] = $weiba_id;
-            if (! empty($topPostList)) {
+            if (!empty($topPostList)) {
                 $post_ids1 = (array) getSubByKey($topPostList, 'post_id');
                 $map2 ['post_id'] = array(
                         'not in',
@@ -75,7 +75,7 @@ class WeibaAction extends BaseAction
             }
 
             $innerTop = D('weiba_post', 'weiba')->where($map2)->order('post_time desc')->findAll();
-            if (! empty($innerTop)) {
+            if (!empty($innerTop)) {
                 $post_ids2 = (array) getSubByKey($innerTop, 'post_id');
             }
             $post_ids = array_merge((array) $post_ids1, (array) $post_ids2);
@@ -88,9 +88,9 @@ class WeibaAction extends BaseAction
             $maps['digest'] = 1;
         }
         $list = D('weiba_post', 'weiba')->where($maps)->order($order)->findpage(20, false, array(), true); //print_r($list);
-        ! $topPostList && $topPostList = array();
-        ! $innerTop && $innerTop = array();
-        ! $list ['data'] && $list ['data'] = array();
+        !$topPostList && $topPostList = array();
+        !$innerTop && $innerTop = array();
+        !$list ['data'] && $list ['data'] = array();
         $list ['data'] = array_merge($topPostList, $innerTop, $list ['data']);
 
         $post_uids = getSubByKey($list ['data'], 'post_uid');
@@ -114,7 +114,7 @@ class WeibaAction extends BaseAction
         $post_id = intval($_GET ['post_id']);
         $post_detail = D('weiba_post')->where('is_del=0 and post_id='.$post_id)->find();
         $weiba_detail = $this->_top_link($post_detail ['weiba_id'], true);
-        if (! $post_detail || $weiba_detail ['is_del']) {
+        if (!$post_detail || $weiba_detail ['is_del']) {
             $this->error('帖子不存在或已被删除');
         }
         if (D('weiba_favorite')->where('uid='.$this->mid.' AND post_id='.$post_id)->find()) {
@@ -179,7 +179,7 @@ class WeibaAction extends BaseAction
     public function _top_link($weiba_id, $detail = false)
     {
         $weiba_detail = D('weiba', 'weiba')->where('is_del=0 and status=1 and weiba_id='.$weiba_id)->find();
-        if (! $weiba_detail) {
+        if (!$weiba_detail) {
             $this->error('该版块不存在或已被删除');
         }
         $weiba_detail['logo'] = $weiba_detail['avatar_big'];
@@ -193,7 +193,7 @@ class WeibaAction extends BaseAction
     }
     public function _assignUserInfo($uids)
     {
-        ! is_array($uids) && $uids = explode(',', $uids);
+        !is_array($uids) && $uids = explode(',', $uids);
         //var_dump($uids);
         $user_info = model('User')->getUserInfoByUids($uids);
         $this->assign('user_info', $user_info);
@@ -201,14 +201,13 @@ class WeibaAction extends BaseAction
     }
 
     /**
-     * 发布帖子
-     *
+     * 发布帖子.
      */
     public function post()
     {
         $this->need_login();
 
-        if (! CheckPermission('weiba_normal', 'weiba_post')) {
+        if (!CheckPermission('weiba_normal', 'weiba_post')) {
             $this->error('对不起，您没有权限进行该操作！');
         }
         $weiba_id = intval($_GET ['weiba_id']);
@@ -229,28 +228,27 @@ class WeibaAction extends BaseAction
     }
 
     /**
-     * 执行发布帖子
-     *
+     * 执行发布帖子.
      */
     public function doPost()
     {
         $this->need_login();
 
-        if (! CheckPermission('weiba_normal', 'weiba_post')) {
+        if (!CheckPermission('weiba_normal', 'weiba_post')) {
             $this->error('对不起，您没有权限进行该操作！', true);
         }
         $weibaid = intval($_POST ['weiba_id']);
-        if (! $weibaid) {
+        if (!$weibaid) {
             $this->error('请选择微吧！', true);
         }
         $weiba = D('weiba', 'weiba')->where('weiba_id='.$weibaid)->find();
-        if (! CheckPermission('core_admin', 'admin_login')) {
+        if (!CheckPermission('core_admin', 'admin_login')) {
             switch ($weiba ['who_can_post']) {
                 case 1:
                     $map ['weiba_id'] = $weibaid;
                     $map ['follower_uid'] = $this->mid;
                     $res = D('weiba_follow')->where($map)->find();
-                    if (! $res && ! CheckPermission('core_admin', 'admin_login')) {
+                    if (!$res && !CheckPermission('core_admin', 'admin_login')) {
                         $this->error('对不起，您没有发帖权限，请关注该微吧！', true);
                     }
                     break;
@@ -261,7 +259,7 @@ class WeibaAction extends BaseAction
                             '2,3',
                     );
                     $weiba_admin = D('weiba_follow')->where($map)->order('level desc')->field('follower_uid')->findAll();
-                    if (! in_array($this->mid, getSubByKey($weiba_admin, 'follower_uid')) && ! CheckPermission('core_admin', 'admin_login')) {
+                    if (!in_array($this->mid, getSubByKey($weiba_admin, 'follower_uid')) && !CheckPermission('core_admin', 'admin_login')) {
                         $this->error('对不起，您没有发帖权限，仅限管理员发帖！', true);
                     }
                     break;
@@ -269,7 +267,7 @@ class WeibaAction extends BaseAction
                     $map ['weiba_id'] = $weibaid;
                     $map ['level'] = 3;
                     $weiba_admin = D('weiba_follow')->where($map)->order('level desc')->field('follower_uid')->find();
-                    if ($this->mid != $weiba_admin ['follower_uid'] && ! CheckPermission('core_admin', 'admin_login')) {
+                    if ($this->mid != $weiba_admin ['follower_uid'] && !CheckPermission('core_admin', 'admin_login')) {
                         $this->error('对不起，您没有发帖权限，仅限圈主发帖！', true);
                     }
                     break;
@@ -295,7 +293,7 @@ class WeibaAction extends BaseAction
         if ($_POST ['attach_ids']) {
             $attach = explode('|', $_POST ['attach_ids']);
             foreach ($attach as $k => $a) {
-                if (! $a) {
+                if (!$a) {
                     unset($attach [$k]);
                 }
             }
@@ -390,8 +388,7 @@ class WeibaAction extends BaseAction
         echo $html;
     }
     /**
-     * 收藏帖子
-     *
+     * 收藏帖子.
      */
     public function favorite()
     {
@@ -414,15 +411,14 @@ class WeibaAction extends BaseAction
     }
 
     /**
-     * 取消收藏帖子
-     *
+     * 取消收藏帖子.
      */
     public function unfavorite()
     {
         $map ['post_id'] = intval($_POST ['post_id']);
         $map ['uid'] = $this->mid;
         if (D('weiba_favorite')->where($map)->delete()) {
-            model('UserData')->setCountByStep($map ['uid'], 'favorite_count', - 1);
+            model('UserData')->setCountByStep($map ['uid'], 'favorite_count', -1);
             echo 1;
         } else {
             echo 0;
@@ -430,8 +426,7 @@ class WeibaAction extends BaseAction
     }
 
     /**
-     *我的
-     *
+     *我的.
      */
     public function my()
     {
@@ -501,7 +496,7 @@ class WeibaAction extends BaseAction
     }
 
     /**
-     * 关注微吧
+     * 关注微吧.
      */
     public function doFollowWeiba()
     {
@@ -513,7 +508,7 @@ class WeibaAction extends BaseAction
     }
 
     /**
-     * 取消关注微吧
+     * 取消关注微吧.
      */
     public function unFollowWeiba()
     {

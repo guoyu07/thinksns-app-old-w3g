@@ -100,7 +100,8 @@ function is_android()
 }
 
 /**
- * 表情替换 [格式化分享与格式化评论专用]
+ * 表情替换 [格式化分享与格式化评论专用].
+ *
  * @param array $data
  */
 function _w3g_parse_expression($data)
@@ -221,10 +222,12 @@ function bbcodewap($message)
 }
 
 /**
- * 解析获得表情img
+ * 解析获得表情img.
  *
- * @param  string $data 内容数据
+ * @param string $data 内容数据
+ *
  * @return string
+ *
  * @author Medz Seven <lovevipdsw@vip.qq.com>
  **/
 function emoji($data)

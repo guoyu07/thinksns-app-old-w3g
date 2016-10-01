@@ -1,8 +1,8 @@
 <?php
 /**
- * 群组Dao类
- * @author Stream
+ * 群组Dao类.
  *
+ * @author Stream
  */
 class GroupModel extends Model
 {
@@ -222,7 +222,7 @@ class GroupModel extends Model
                     $v['reason'] = '热门群组';
                     $group_list['data'][] = $v;
                     $not_in_gids[] = $v['id'];
-                    $group_count['count']++;
+                    ++$group_count['count'];
                 }
                 if ($group_count['count'] >= 4) {
                     break;
@@ -247,9 +247,10 @@ class GroupModel extends Model
     }
 
     /**
-     * 群组热门排行
+     * 群组热门排行.
      *
-     * @param  unknown_type $reset 是否重设缓存
+     * @param unknown_type $reset 是否重设缓存
+     *
      * @return unknown
      */
     public function getHotList($reset = false)
@@ -325,9 +326,9 @@ class GroupModel extends Model
 
         // 根据权值倒序排列
         $group_num = count($hot_list);
-        for ($i = 0; $i < $group_num; $i++) {
+        for ($i = 0; $i < $group_num; ++$i) {
             $hot_list[$i]['weight'] = $weight[$hot_list[$i]['gid']];
-            for ($j = $i; $j > 0; $j--) {
+            for ($j = $i; $j > 0; --$j) {
                 if ($hot_list[$j]['weight'] > $hot_list[$j - 1]['weight']) {
                     $_temp = $hot_list[$j];
                     $hot_list[$j] = $hot_list[$j - 1];
@@ -387,7 +388,7 @@ class GroupModel extends Model
     }
 
         /**
-         * getGroupList
+         * getGroupList.
 
          */
         public function getGroupList($html = 1, $map = array(), $fields = null, $order = null, $limit = null, $isDel = 0)
@@ -402,7 +403,7 @@ class GroupModel extends Model
 
             $function_find = $html ? 'findPage' : 'findAll';
             //连贯查询.获得数据集
-            $result = $this->where($map)->field($fields)->order($order)->$function_find($limit) ;
+            $result = $this->where($map)->field($fields)->order($order)->$function_find($limit);
 
             return $result;
         }

@@ -1,8 +1,11 @@
 <?php
 /**
- * 群组分享列表
+ * 群组分享列表.
+ *
  * @example {:W('GroupFeedList',array('type'=>'space','feed_type'=>$feed_type,'feed_key'=>$feed_key,'loadnew'=>0,'gid'=>$gid))}
+ *
  * @author jason
+ *
  * @version TS3.0
  */
 class GroupFeedListWidget extends Widget
@@ -34,14 +37,15 @@ class GroupFeedListWidget extends Widget
         // 我关注的频道
 //         $var['channel'] = M('channel_follow')->where('uid='.$this->mid)->count();
         $content['html'] = $this->renderFile(dirname(__FILE__).'/'.$var['tpl'], $var);
-        self::$rand ++;
+        ++self::$rand;
         unset($var, $data);
         //输出数据
         return $content['html'];
     }
 
     /**
-     * 显示更多分享
+     * 显示更多分享.
+     *
      * @return array 更多分享信息、状态和提示
      */
     public function loadMore()
@@ -78,7 +82,8 @@ class GroupFeedListWidget extends Widget
     }
 
     /**
-     * 显示最新分享
+     * 显示最新分享.
+     *
      * @return array 最新分享信息、状态和提示
      */
     public function loadNew()
@@ -104,10 +109,12 @@ class GroupFeedListWidget extends Widget
     }
 
     /**
-     * 获取分享数据，渲染分享显示页面
-     * @param  array  $var 分享数据相关参数
-     * @param  string $tpl 渲染的模板
-     * @return array  获取分享相关模板数据
+     * 获取分享数据，渲染分享显示页面.
+     *
+     * @param array  $var 分享数据相关参数
+     * @param string $tpl 渲染的模板
+     *
+     * @return array 获取分享相关模板数据
      */
     private function getData($var, $tpl = 'FeedList.html')
     {
@@ -177,10 +184,12 @@ class GroupFeedListWidget extends Widget
     }
 
     /**
-     * 获取话题分享数据，渲染分享显示页面
-     * @param  array  $var 分享数据相关参数
-     * @param  string $tpl 渲染的模板
-     * @return array  获取分享相关模板数据
+     * 获取话题分享数据，渲染分享显示页面.
+     *
+     * @param array  $var 分享数据相关参数
+     * @param string $tpl 渲染的模板
+     *
+     * @return array 获取分享相关模板数据
      */
     private function getTopicData($var, $tpl = 'FeedList.html')
     {

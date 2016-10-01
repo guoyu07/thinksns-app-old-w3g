@@ -62,7 +62,7 @@ class ChannelAction extends BaseAction
     }
 
     /**
-     * 隐私设置
+     * 隐私设置.
      */
     public function privacy($uid)
     {

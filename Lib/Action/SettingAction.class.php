@@ -96,7 +96,7 @@ class SettingAction extends BaseAction
     }
 
     /**
-     * 隐私设置页面
+     * 隐私设置页面.
      */
     public function privacy()
     {
@@ -120,7 +120,8 @@ class SettingAction extends BaseAction
     }
 
     /**
-     * 保存登录用户隐私设置操作
+     * 保存登录用户隐私设置操作.
+     *
      * @return json 返回操作后的JSON信息数据
      */
     public function doSavePrivacy()
@@ -131,7 +132,7 @@ class SettingAction extends BaseAction
     }
 
     /**
-     * 帐号安全设置页面
+     * 帐号安全设置页面.
      */
     public function security()
     {
@@ -165,7 +166,8 @@ class SettingAction extends BaseAction
     }
 
     /**
-     * 修改登录用户帐号密码操作
+     * 修改登录用户帐号密码操作.
+     *
      * @return json 返回操作后的JSON信息数据
      */
     public function doModifyPassword()
@@ -321,7 +323,8 @@ class SettingAction extends BaseAction
     }
 
     /**
-     * 保存登录用户的头像设置操作
+     * 保存登录用户的头像设置操作.
+     *
      * @return json 返回操作后的JSON信息数据
      */
     public function doSaveAvatar()

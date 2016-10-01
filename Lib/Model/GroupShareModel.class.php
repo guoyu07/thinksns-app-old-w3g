@@ -3,7 +3,8 @@
 class GroupShareModel
 {
     /**
-     * 分享到分享
+     * 分享到分享.
+     *
      * @example
      * 需要传入的$data值
      * sid：转发的分享/资源ID
@@ -12,10 +13,12 @@ class GroupShareModel
      * body：转发时，自定义写入的内容
      * type：分享类型
      * comment：是否给原作者评论
-     * @param  array  $data     分享的相关数据
-     * @param  string $from     是否发@给资源作者，默认为share
-     * @param  array  $lessUids 去掉@用户，默认为null
-     * @return array  分享操作后，相关反馈信息数据
+     *
+     * @param array  $data     分享的相关数据
+     * @param string $from     是否发@给资源作者，默认为share
+     * @param array  $lessUids 去掉@用户，默认为null
+     *
+     * @return array 分享操作后，相关反馈信息数据
      */
     public function shareFeed($data, $from = 'share', $lessUids = null)
     {
@@ -113,7 +116,8 @@ class GroupShareModel
     }
 
     /**
-     * 分享给同事
+     * 分享给同事.
+     *
      * @example
      * 需要传入的$data值
      * uid：同事用户ID
@@ -123,7 +127,9 @@ class GroupShareModel
      * body：转发时，自定义写入的内容
      * type：分享类型
      * comment：是否给原作者评论
-     * @param  array $data 分享的相关数据
+     *
+     * @param array $data 分享的相关数据
+     *
      * @return array 分享操作后，相关反馈信息数据
      */
     public function shareMessage($data)

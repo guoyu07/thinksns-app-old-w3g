@@ -23,7 +23,7 @@ class WeixinAction extends BaseAction
         $this->data = $data;
         weixin_log($data, $GLOBALS ['HTTP_RAW_POST_DATA']);
 
-        if (! empty($data ['FromUserName'])) {
+        if (!empty($data ['FromUserName'])) {
             session('openid', $data ['FromUserName']);
         }
 
@@ -45,7 +45,7 @@ class WeixinAction extends BaseAction
                 $name = $vo ['name'];
                 $this->plugin_deal($name, $event, $data);
             }
-            if (! ($event == 'click' && ! empty($data ['EventKey']))) {
+            if (!($event == 'click' && !empty($data ['EventKey']))) {
                 return true;
             }
 
@@ -54,25 +54,25 @@ class WeixinAction extends BaseAction
 
         $uid = intval($this->mid);
         $user_status = S('user_status_'.$uid);
-        if (! isset($plugins [$key]) && $user_status) {
+        if (!isset($plugins [$key]) && $user_status) {
             $plugins [$key] = $user_status ['module'];
             $keywordArr = $user_status ['keywordArr'];
             S('user_status_'.$uid, null);
         }
 
-        if (! isset($plugins [$key])) {
+        if (!isset($plugins [$key])) {
             foreach ($addon_list as $k => $vo) {
                 $plugins [$vo ['name']] = $k;
                 $plugins [$vo ['pluginName']] = $k;
             }
         }
 
-        if (! isset($plugins [$key])) {
+        if (!isset($plugins [$key])) {
             $like ['keyword'] = array(
                     'like',
                     "%$key%",
             );
-            if (! empty($forbit_list)) {
+            if (!empty($forbit_list)) {
                 $like ['module'] = array(
                         'not in',
                         $forbit_list,
@@ -84,7 +84,7 @@ class WeixinAction extends BaseAction
         }
 
         // 回答不上
-        if (! isset($plugins [$key])) {
+        if (!isset($plugins [$key])) {
             $plugins [$key] = 'Base';
         }
         $this->plugin_deal($plugins [$key], 'response', $data, $keywordArr);
@@ -92,14 +92,14 @@ class WeixinAction extends BaseAction
     public function plugin_deal($plugin, $action, $data, $keywordArr = array())
     {
         $path = ADDON_PATH.'/plugin/'.$plugin.'/'.$plugin.'Addons.class.php';
-        if (! file_exists($path)) {
+        if (!file_exists($path)) {
             return false;
         }
 
         require_once $path;
         $class = $plugin.'Addons';
         $model = new $class ();
-        if (! method_exists($model, $action)) {
+        if (!method_exists($model, $action)) {
             return false;
         }
 

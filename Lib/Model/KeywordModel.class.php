@@ -12,7 +12,7 @@ class KeywordModel extends Model
         $keyword = array_filter($keyword);
 
         $has = false;
-        if (! empty($keyword)) {
+        if (!empty($keyword)) {
             $map ['keyword'] = array(
                     'in',
                     $keyword,
@@ -51,6 +51,6 @@ class KeywordModel extends Model
         }
         $info = $this->where($map)->find();
 
-        return (! $info || $info ['pid'] == intval($pid)) ? 0 : 1;
+        return (!$info || $info ['pid'] == intval($pid)) ? 0 : 1;
     }
 }

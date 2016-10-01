@@ -1,19 +1,20 @@
 <?php
 /**
- * MessageAction 消息模块
+ * MessageAction 消息模块.
+ *
  * @version TS3.0
  */
 class MessageAction extends BaseAction
 {
     /**
-     * 模块初始化
+     * 模块初始化.
      */
     public function _initialize()
     {
     }
 
     /**
-     * 私信列表
+     * 私信列表.
      */
     public function index()
     {
@@ -41,7 +42,7 @@ class MessageAction extends BaseAction
         $this->display('list');
     }
     /**
-     * 点击关闭信息按钮后设置当前用户所有信息为已读
+     * 点击关闭信息按钮后设置当前用户所有信息为已读.
      */
     public function setAllIsRead()
     {
@@ -56,7 +57,7 @@ class MessageAction extends BaseAction
     }
 
     /**
-     * 系统通知
+     * 系统通知.
      */
     public function notify()
     {
@@ -85,7 +86,7 @@ class MessageAction extends BaseAction
     }
 
     /**
-     * 获取指定应用指定用户下的消息列表
+     * 获取指定应用指定用户下的消息列表.
      */
     public function notifyDetail()
     {
@@ -111,7 +112,7 @@ class MessageAction extends BaseAction
     }
 
     /**
-     * 私信详情
+     * 私信详情.
      */
     public function detail()
     {
@@ -156,7 +157,7 @@ class MessageAction extends BaseAction
     }
 
     /**
-     * 获取指定私信列表中的私信内容
+     * 获取指定私信列表中的私信内容.
      */
     public function loadMessage()
     {
@@ -174,7 +175,7 @@ class MessageAction extends BaseAction
     }
 
     /**
-     * 发送私信弹窗
+     * 发送私信弹窗.
      */
     public function post()
     {
@@ -270,7 +271,8 @@ class MessageAction extends BaseAction
     }
 
     /**
-     * 设置指定私信为已读
+     * 设置指定私信为已读.
+     *
      * @return int 1=成功 0=失败
      */
     public function doSetIsRead()
@@ -285,6 +287,7 @@ class MessageAction extends BaseAction
 
     /**
      * 删除私信
+     *
      * @return int 1=成功 0=失败
      */
     public function doDelete()
@@ -298,7 +301,8 @@ class MessageAction extends BaseAction
     }
 
     /**
-     * 删除用户指定私信会话
+     * 删除用户指定私信会话.
+     *
      * @return int 1=成功 0=失败
      */
     public function doDeleteSession()

@@ -1,7 +1,7 @@
 <?php
 /**
  * ProtocolModel
- * 提供给Ts核心调用的协议类
+ * 提供给Ts核心调用的协议类.
  */
 class GroupProtocolModel extends Model
 {

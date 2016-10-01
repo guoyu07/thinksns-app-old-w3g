@@ -1,8 +1,8 @@
 <?php
 /**
- * 群组 群聊类
- * @author Stream
+ * 群组 群聊类.
  *
+ * @author Stream
  */
 class GroupFeedModel extends Model
 {
@@ -27,17 +27,19 @@ class GroupFeedModel extends Model
             15 => 'is_audit',
             );
     /**
-     * 添加分享
-     * @param  int    $uid       操作用户ID
-     * @param  string $app       分享应用类型，默认为public
-     * @param  string $type      分享类型，
-     * @param  array  $data      分享相关数据
-     * @param  int    $app_id    应用资源ID，默认为0
-     * @param  string $app_table 应用资源表名，默认为feed
-     * @param  array  $extUid    额外用户ID，默认为null
-     * @param  array  $lessUids  去除的用户ID，默认为null
-     * @param  bool   $isAtMe    是否为进行发送，默认为true
-     * @return mix    添加失败返回false，成功返回新的分享ID
+     * 添加分享.
+     *
+     * @param int    $uid       操作用户ID
+     * @param string $app       分享应用类型，默认为public
+     * @param string $type      分享类型，
+     * @param array  $data      分享相关数据
+     * @param int    $app_id    应用资源ID，默认为0
+     * @param string $app_table 应用资源表名，默认为feed
+     * @param array  $extUid    额外用户ID，默认为null
+     * @param array  $lessUids  去除的用户ID，默认为null
+     * @param bool   $isAtMe    是否为进行发送，默认为true
+     *
+     * @return mix 添加失败返回false，成功返回新的分享ID
      */
     public function put($uid, $app = 'group', $type = '', $data = array(), $app_id = 0, $app_table = 'group_feed', $extUid = null, $lessUids = null, $isAtMe = true, $is_repost = 0)
     {
@@ -185,10 +187,12 @@ class GroupFeedModel extends Model
         }
     }
     /**
-     * 同步到分享
+     * 同步到分享.
+     *
      * @param string content 内容
      * @param int uid 发布者uid
      * @param mixed attach_ids 附件ID
+     *
      * @return int feed_id 分享ID
      */
     public function syncToFeed($content, $uid, $attach_ids, $from, $gid)
@@ -208,9 +212,11 @@ class GroupFeedModel extends Model
         return $feed['feed_id'];
     }
     /**
-     * 获取分享列表
-     * @param  array $map   查询条件
-     * @param  int   $limit 结果集数目，默认为10
+     * 获取分享列表.
+     *
+     * @param array $map   查询条件
+     * @param int   $limit 结果集数目，默认为10
+     *
      * @return array 分享列表数据
      */
     public function getList($map, $limit = 10, $order = 'publish_time DESC')
@@ -222,8 +228,10 @@ class GroupFeedModel extends Model
         return $feedlist;
     }
     /**
-     * 获取指定分享的信息
-     * @param  int $feed_id 分享ID
+     * 获取指定分享的信息.
+     *
+     * @param int $feed_id 分享ID
+     *
      * @return mix 获取失败返回false，成功返回分享信息
      */
     public function get($feed_id)
@@ -237,8 +245,10 @@ class GroupFeedModel extends Model
         }
     }
     /**
-     * 获取给定分享ID的分享信息
-     * @param  array $feed_ids 分享ID数组
+     * 获取给定分享ID的分享信息.
+     *
+     * @param array $feed_ids 分享ID数组
+     *
      * @return array 给定分享ID的分享信息
      */
     public function getFeeds($feed_ids)
@@ -267,7 +277,8 @@ class GroupFeedModel extends Model
     }
 
     /**
-     * 生成指定分享的缓存
+     * 生成指定分享的缓存.
+     *
      * @param array $value   分享相关数据
      * @param array $feed_id 分享ID数组
      */
@@ -310,7 +321,8 @@ class GroupFeedModel extends Model
         }
     }
     /**
-     * 清除指定用户指定分享的列表缓存
+     * 清除指定用户指定分享的列表缓存.
+     *
      * @param array $feed_ids 分享ID数组，默认为空
      * @param int   $uid      用户ID，默认为空
      */
@@ -332,8 +344,10 @@ class GroupFeedModel extends Model
         }
     }
     /**
-     * 解析分享模板标签
-     * @param  array $_data 分享的原始数据
+     * 解析分享模板标签.
+     *
+     * @param array $_data 分享的原始数据
+     *
      * @return array 解析分享模板后的分享数据
      */
     private function __paseTemplate($_data)
@@ -427,11 +441,13 @@ class GroupFeedModel extends Model
     }
 
     /**
-     * 从group_weibo中提取资源数据
-     * @param  string $table  资源表名
-     * @param  int    $row_id 资源ID
-     * @param  bool   $forApi 是否提供API，默认为false
-     * @return array  格式化后的资源数据
+     * 从group_weibo中提取资源数据.
+     *
+     * @param string $table  资源表名
+     * @param int    $row_id 资源ID
+     * @param bool   $forApi 是否提供API，默认为false
+     *
+     * @return array 格式化后的资源数据
      */
     public function getSourceInfo($row_id, $forApi)
     {
@@ -450,8 +466,10 @@ class GroupFeedModel extends Model
 
     /**
      * 获取指定分享的信息，用于资源模型输出???
-     * @param  int   $id     分享ID
-     * @param  bool  $forApi 是否提供API数据，默认为false
+     *
+     * @param int  $id     分享ID
+     * @param bool $forApi 是否提供API数据，默认为false
+     *
      * @return array 指定分享数据
      */
     public function getFeedInfo($id, $forApi = false)
@@ -529,12 +547,14 @@ class GroupFeedModel extends Model
         return $data;
     }
     /**
-     * 分享操作，彻底删除、假删除、回复
-     * @param  int    $feed_id 分享ID
-     * @param  string $type    分享操作类型，deleteFeed：彻底删除，delFeed：假删除，feedRecover：恢复
-     * @param  string $title   知识内容，目前没没有该功能
-     * @param  string $uid     删除分享的用户ID（区别超级管理员）
-     * @return array  分享操作后的结果信息数组
+     * 分享操作，彻底删除、假删除、回复.
+     *
+     * @param int    $feed_id 分享ID
+     * @param string $type    分享操作类型，deleteFeed：彻底删除，delFeed：假删除，feedRecover：恢复
+     * @param string $title   知识内容，目前没没有该功能
+     * @param string $uid     删除分享的用户ID（区别超级管理员）
+     *
+     * @return array 分享操作后的结果信息数组
      */
     public function doEditFeed($feed_id, $type, $title, $uid = null)
     {
@@ -593,7 +613,8 @@ class GroupFeedModel extends Model
     }
 
     /**
-     * 删除分享相关附件数据
+     * 删除分享相关附件数据.
+     *
      * @param array  $feedIds 分享ID数组
      * @param string $type    删除附件类型
      */

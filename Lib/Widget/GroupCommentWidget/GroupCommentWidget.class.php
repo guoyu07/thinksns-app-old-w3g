@@ -1,8 +1,11 @@
 <?php
 /**
-  * 评论发布/显示框
+  * 评论发布/显示框.
+  *
   * @example W('GroupComment',array('tpl'=>'detail','row_id'=>72,'order'=>'DESC','app_uid'=>'14983','cancomment'=>1,'cancomment_old'=>0,'showlist'=>1,'canrepost'=>1))
+  *
   * @author jason <yangjs17@yeah.net>
+  *
   * @version TS3.0
   */
 class GroupCommentWidget extends Widget
@@ -75,7 +78,7 @@ class GroupCommentWidget extends Widget
         $sourceInfo = D('GroupFeed')->get($var['row_id']);
         $var['feedtype'] = $sourceInfo['type'];
         $content = $this->renderFile(dirname(__FILE__).'/'.$var['tpl'].'.html', $var);
-        self::$rand ++;
+        ++self::$rand;
         $ajax = $var['isAjax'];
         unset($var, $data);
         //输出数据
@@ -106,7 +109,8 @@ class GroupCommentWidget extends Widget
         exit($content);
     }
     /**
-     * 添加评论的操作
+     * 添加评论的操作.
+     *
      * @return array 评论添加状态和提示信息
      */
     public function addcomment()
@@ -161,7 +165,7 @@ class GroupCommentWidget extends Widget
                 }
             }
 
-            $return['status'] = 1 ;
+            $return['status'] = 1;
             $return['data'] = $this->parseComment($data);
             $oldInfo = model('Source')->getSourceInfo($data['table'], !empty($data['app_row_id']) ? $data['app_row_id'] : $data['row_id'], false, $data['app']);
             // 转发到我的分享
@@ -234,7 +238,8 @@ class GroupCommentWidget extends Widget
     }
 
     /**
-     * 删除评论
+     * 删除评论.
+     *
      * @return bool true or false
      */
     public function delcomment()
@@ -270,7 +275,7 @@ class GroupCommentWidget extends Widget
     }
 
     /**
-     * 渲染评论页面 在addcomment方法中调用
+     * 渲染评论页面 在addcomment方法中调用.
      */
     public function parseComment($data)
     {

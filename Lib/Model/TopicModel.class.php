@@ -32,7 +32,7 @@ class TopicModel extends Model
 
     //获取帖子列表
     /**
-     * getTopicList
+     * getTopicList.
      */
     public function getTopicList($html = 1, $map = null, $fields = null, $order = null, $limit = null, $isDel = 0)
     {
@@ -45,7 +45,7 @@ class TopicModel extends Model
 
         $map = implode(' AND ', $map);
             //连贯查询.获得数据集
-            $result = $this->where($map)->field($fields)->order($order)->findPage($limit) ;
+            $result = $this->where($map)->field($fields)->order($order)->findPage($limit);
         if ($html) {
             return $result;
         }

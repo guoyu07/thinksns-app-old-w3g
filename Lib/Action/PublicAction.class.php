@@ -9,7 +9,7 @@ class PublicAction extends Action
     private $_invite_code;                // 邀请码
 
     /**
-     * 模块初始化，获取注册配置信息、用户模型对象、注册模型对象、邀请注册与站点头部信息设置
+     * 模块初始化，获取注册配置信息、用户模型对象、注册模型对象、邀请注册与站点头部信息设置.
      */
     protected function _initialize()
     {
@@ -117,7 +117,7 @@ class PublicAction extends Action
             $this->setSessionAndCookie($user['uid'], $user['uname'], $user['email'], intval($_POST['remember']) === 1);
 
             $openid = session('openid');
-            if (empty($user ['openid']) && ! empty($openid)) {
+            if (empty($user ['openid']) && !empty($openid)) {
                 M('user')->where('uid='.$user ['uid'])->setField('openid', $openid);
             }
             // $this->recordLogin($user['uid']);
@@ -396,6 +396,7 @@ class PublicAction extends Action
 
     /**
      * 通过邮箱找回密码
+     *
      * @return json
      */
     public function doFindPassByEmail()
@@ -428,7 +429,8 @@ class PublicAction extends Action
     }
 
     /**
-     * 手机号是否有效
+     * 手机号是否有效.
+     *
      * @return json
      */
     public function isPhoneAvailable()
@@ -447,7 +449,8 @@ class PublicAction extends Action
     }
 
     /**
-     * 验证码是否有效
+     * 验证码是否有效.
+     *
      * @return json
      */
     /*public function isRegCodeAvailable() {
@@ -462,7 +465,7 @@ class PublicAction extends Action
     }*/
 
     /**
-     * 验证验证码是否有效
+     * 验证验证码是否有效.
      *
      * @author Medz Seven <lovevipdsw@vip.qq.com>
      **/
@@ -477,6 +480,7 @@ class PublicAction extends Action
 
     /**
      * 发送手机验证码
+     *
      * @return json
      */
     /*public function sendPasswordCode() {
@@ -524,6 +528,7 @@ class PublicAction extends Action
 
     /**
      * 通过手机找回密码
+     *
      * @return json
      */
     /*public function doFindPasswordByMobile() {
@@ -585,7 +590,7 @@ class PublicAction extends Action
     }
 
     /**
-     * 重置密码页面
+     * 重置密码页面.
      */
     public function resetPassword()
     {
@@ -596,7 +601,7 @@ class PublicAction extends Action
     }
 
     /**
-     * 签到
+     * 签到.
      */
     public function sign_in()
     {
@@ -607,7 +612,7 @@ class PublicAction extends Action
     }
 
     /**
-     * 执行重置密码操作
+     * 执行重置密码操作.
      */
     public function doResetPassword()
     {
@@ -649,7 +654,7 @@ class PublicAction extends Action
     }
 
     /**
-     * 检查重置密码的验证码操作
+     * 检查重置密码的验证码操作.
      */
     private function _checkResetPasswordCode($code)
     {
@@ -670,7 +675,7 @@ class PublicAction extends Action
     }
 
     /**
-     * 发送找回密码邮件
+     * 发送找回密码邮件.
      */
     private function _sendPasswordEmail($user)
     {

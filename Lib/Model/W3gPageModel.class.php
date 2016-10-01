@@ -1,20 +1,24 @@
 <?php
 /**
- * 分享模型 - 数据对象模型
+ * 分享模型 - 数据对象模型.
+ *
  * @author jason <yangjs17@yeah.net>
+ *
  * @version TS3.0
  */
 class W3gPageModel
 {
     /**
-     * 获取登录用户所关注人的最新分享
-     * @param  string $type     分享类型,原创post,转发repost,图片postimage,附件postfile,视频postvideo
-     * @param  int    $mid      用户ID
-     * @param  int    $since_id 分享ID，从此分享ID开始，默认为0
-     * @param  int    $max_id   最大分享ID，默认为0
-     * @param  int    $limit    结果集数目，默认为20
-     * @param  int    $page     分页数，默认为1
-     * @return array  登录用户所关注人的最新分享
+     * 获取登录用户所关注人的最新分享.
+     *
+     * @param string $type     分享类型,原创post,转发repost,图片postimage,附件postfile,视频postvideo
+     * @param int    $mid      用户ID
+     * @param int    $since_id 分享ID，从此分享ID开始，默认为0
+     * @param int    $max_id   最大分享ID，默认为0
+     * @param int    $limit    结果集数目，默认为20
+     * @param int    $page     分页数，默认为1
+     *
+     * @return array 登录用户所关注人的最新分享
      */
     public function friends_timeline_page($type, $mid, $since_id = 0, $max_id = 0, $limit = 20, $page = 1)
     {
