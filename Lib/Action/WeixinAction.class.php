@@ -91,14 +91,12 @@ class WeixinAction extends BaseAction
     }
     public function plugin_deal($plugin, $action, $data, $keywordArr = array())
     {
-        $path = ADDON_PATH.'/plugin/'.$plugin.'/'.$plugin.'Addons.class.php';
-        if (!file_exists($path)) {
+        $class = $plugin.'Addons';
+        if (!class_exists($class)) {
             return false;
         }
 
-        require_once $path;
-        $class = $plugin.'Addons';
-        $model = new $class ();
+        $model = new $class();
         if (!method_exists($model, $action)) {
             return false;
         }
