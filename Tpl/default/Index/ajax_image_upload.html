@@ -1,6 +1,6 @@
 <include file="../Public/header_ajax" />
 <!-- <p><?php dump($attach_id);?></p> -->
-<form action="{:U('w3g/Index/ajax_image_upload')}" method="post" enctype="multipart/form-data">
+<form  name="myForm" id="myForm"  action="{:U('w3g/Index/ajax_image_upload')}" method="post" enctype="multipart/form-data">
 		<input type="file" name="file" id="file" class="form-control" accept="image/gif,image.jpg,image/jpeg,image/pjpeg,image/png,image/bmp"/> 
 	<div class="hide">
 		<input type="text" name="attach_type" id="attach_type" value="feed_image"/>
@@ -8,7 +8,7 @@
 		<eq name="channel" value="1">
 			<input type="hidden" name="channel" value="1" />
 		</eq>
-        <button type="submit" name="submit" id="doupload" class="hide">上传</button>
+        <button type="submit" name="submits" id="doupload" class="hide">上传</button>
 	</div>
 </form>
 <div id="upload_alert_box">
@@ -100,6 +100,7 @@ $(function(){
 	}
 	$(document).on('change','#file',function(){
                 window.parent.uploading();
+				document.myForm.submit();//此行 为耿师傅尝试修改~ 是否为bug未知，如果w3g中发朋友圈上传图片不成功无任何提示，请删除此行！
 		$('#doupload').trigger('click');
 //		window.parent.tips('上传中...',2,0);
 	});
